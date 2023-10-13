@@ -1,5 +1,3 @@
-# calculator.py (feature-final-version branch)
-
 import math
 
 def add(x, y):
@@ -27,6 +25,9 @@ def calculate_remainder(x, y):
         return "Cannot calculate remainder when the divisor is zero"
     return x % y
 
+def calculate_power(x, y):
+    return math.pow(x, y)
+
 print("Welcome to the Calculator (Final Version)")
 
 while True:
@@ -38,15 +39,16 @@ while True:
     print("Enter 'percentage' for percentage calculation")
     print("Enter 'square_root' for square root calculation")
     print("Enter 'remainder' for remainder calculation")
+    print("Enter 'power' for power calculation")
     print("Enter 'exit' to end the program")
 
-    user_input = input("enter number : ")
+    user_input = input("Enter an option: ")
 
     if user_input == "exit":
         break
-    elif user_input in ("add", "subtract", "multiply", "divide", "percentage", "square_root", "remainder"):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
+    elif user_input in ("add", "subtract", "multiply", "divide", "percentage", "square_root", "remainder", "power"):
+        num1 = float(input("Enter the first number: "))
+        num2 = float(input("Enter the second number: "))
 
         if user_input == "add":
             print("Result:", add(num1, num2))
@@ -62,5 +64,7 @@ while True:
             print("Result:", square_root(num1))
         elif user_input == "remainder":
             print("Result:", calculate_remainder(num1, num2))
+        elif user_input == "power":
+            print("Result:", calculate_power(num1, num2))
     else:
         print("Invalid input. Please try again.")
