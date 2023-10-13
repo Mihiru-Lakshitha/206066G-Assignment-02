@@ -1,4 +1,5 @@
 
+import math 
 
 def add(x, y):
     return x + y
@@ -17,4 +18,9 @@ def divide(x, y):
 def calculate_percentage(x, percentage):
     return (x * percentage) / 100
 
-print("Welcome to the Calculator (with Percentage Calculation)")
+def square_root(x):
+    return math.sqrt(x)
+
+print("Welcome to the Calculator")
+
+
