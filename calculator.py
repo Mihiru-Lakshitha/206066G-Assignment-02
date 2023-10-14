@@ -1,3 +1,5 @@
+import tkinter as tk
+from tkinter import ttk
 import math
 
 def add(x, y):
@@ -28,43 +30,57 @@ def calculate_remainder(x, y):
 def calculate_power(x, y):
     return math.pow(x, y)
 
-print("Welcome to the Calculator (Final Version)")
+# Create the main window
+window = tk.Tk()
+window.title("Calculator")
 
-while True:
-    print("\nOptions:")
-    print("Enter 'add' for addition")
-    print("Enter 'subtract' for subtraction")
-    print("Enter 'multiply' for multiplication")
-    print("Enter 'divide' for division")
-    print("Enter 'percentage' for percentage calculation")
-    print("Enter 'square_root' for square root calculation")
-    print("Enter 'remainder' for remainder calculation")
-    print("Enter 'power' for power calculation")
-    print("Enter 'exit' to end the program")
+# Create labels and entry fields
+label_1 = ttk.Label(window, text="Enter the first number:")
+label_1.grid(row=0, column=0)
+entry_1 = ttk.Entry(window)
+entry_1.grid(row=0, column=1)
 
-    user_input = input("Enter an option: ")
+label_2 = ttk.Label(window, text="Enter the second number:")
+label_2.grid(row=1, column=0)
+entry_2 = ttk.Entry(window)
+entry_2.grid(row=1, column=1)
 
-    if user_input == "exit":
-        break
-    elif user_input in ("add", "subtract", "multiply", "divide", "percentage", "square_root", "remainder", "power"):
-        num1 = float(input("Enter the first number: "))
-        num2 = float(input("Enter the second number: "))
+result_label = ttk.Label(window, text="Result:")
+result_label.grid(row=2, column=0, columnspan=2)
 
-        if user_input == "add":
-            print("Result:", add(num1, num2))
-        elif user_input == "subtract":
-            print("Result:", subtract(num1, num2))
-        elif user_input == "multiply":
-            print("Result:", multiply(num1, num2))
-        elif user_input == "divide":
-            print("Result:", divide(num1, num2))
-        elif user_input == "percentage":
-            print("Result:", calculate_percentage(num1, num2))
-        elif user_input == "square_root":
-            print("Result:", square_root(num1))
-        elif user_input == "remainder":
-            print("Result:", calculate_remainder(num1, num2))
-        elif user_input == "power":
-            print("Result:", calculate_power(num1, num2))
-    else:
-        print("Invalid input. Please try again.")
+def calculate():
+    num1 = float(entry_1.get())
+    num2 = float(entry_2.get())
+    operation = operation_var.get()
+
+    if operation == "add":
+        result_label.config(text="Result: " + str(add(num1, num2)))
+    elif operation == "subtract":
+        result_label.config(text="Result: " + str(subtract(num1, num2)))
+    elif operation == "multiply":
+        result_label.config(text="Result: " + str(multiply(num1, num2)))
+    elif operation == "divide":
+        result_label.config(text="Result: " + str(divide(num1, num2)))
+    elif operation == "percentage":
+        result_label.config(text="Result: " + str(calculate_percentage(num1, num2)))
+    elif operation == "square_root":
+        result_label.config(text="Result: " + str(square_root(num1)))
+    elif operation == "remainder":
+        result_label.config(text="Result: " + str(calculate_remainder(num1, num2)))
+    elif operation == "power":
+        result_label.config(text="Result: " + str(calculate_power(num1, num2))
+
+operation_var = tk.StringVar()
+operation_var.set("add")
+
+operation_label = ttk.Label(window, text="Select operation:")
+operation_label.grid(row=3, column=0)
+operation_menu = ttk.OptionMenu(window, operation_var, "add", "add", "subtract", "multiply", "divide", "percentage", "square_root", "remainder", "power")
+operation_menu.grid(row=3, column=1)
+
+
+calculate_button = ttk.Button(window, text="Calculate", command=calculate)
+calculate_button.grid(row=4, column=0, columnspan=2)
+
+window.mainloop()
+
