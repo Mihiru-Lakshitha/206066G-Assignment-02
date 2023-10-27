@@ -30,11 +30,40 @@ def calculate_remainder(x, y):
 def calculate_power(x, y):
     return math.pow(x, y)
 
-# Create the main window
-window = tk.Tk()
-window.title("Calculator")
+def calculate():
+    num1 = float(entry_1.get())
+    num2 = float(entry_2.get())
+    operation = operation_var.get()
 
-# Create labels and entry fields
+    result = ""
+    if operation == "add":
+        result = add(num1, num2)
+    elif operation == "subtract":
+        result = subtract(num1, num2)
+    elif operation == "multiply":
+        result = multiply(num1, num2)
+    elif operation == "divide":
+        result = divide(num1, num2)
+    elif operation == "percentage":
+        result = calculate_percentage(num1, num2)
+    elif operation == "square_root":
+        result = square_root(num1)
+    elif operation == "remainder":
+        result = calculate_remainder(num1, num2)
+    elif operation == "power":
+        result = calculate_power(num1, num2)
+    
+    result_label.config(text="Result: " + str(result))
+
+def clear():
+    entry_1.delete(0, 'end')
+    entry_2.delete(0, 'end')
+    result_label.config(text="Result:")
+    operation_var.set("add")
+
+window = tk.Tk()
+window.title("Advanced Calculator")
+
 label_1 = ttk.Label(window, text="Enter the first number:")
 label_1.grid(row=0, column=0)
 entry_1 = ttk.Entry(window)
@@ -48,28 +77,6 @@ entry_2.grid(row=1, column=1)
 result_label = ttk.Label(window, text="Result:")
 result_label.grid(row=2, column=0, columnspan=2)
 
-def calculate():
-    num1 = float(entry_1.get())
-    num2 = float(entry_2.get())
-    operation = operation_var.get()
-
-    if operation == "add":
-        result_label.config(text="Result: " + str(add(num1, num2)))
-    elif operation == "subtract":
-        result_label.config(text="Result: " + str(subtract(num1, num2)))
-    elif operation == "multiply":
-        result_label.config(text="Result: " + str(multiply(num1, num2)))
-    elif operation == "divide":
-        result_label.config(text="Result: " + str(divide(num1, num2)))
-    elif operation == "percentage":
-        result_label.config(text="Result: " + str(calculate_percentage(num1, num2)))
-    elif operation == "square_root":
-        result_label.config(text="Result: " + str(square_root(num1)))
-    elif operation == "remainder":
-        result_label.config(text="Result: " + str(calculate_remainder(num1, num2)))
-    elif operation == "power":
-        result_label.config(text="Result: " + str(calculate_power(num1, num2))
-
 operation_var = tk.StringVar()
 operation_var.set("add")
 
@@ -78,9 +85,10 @@ operation_label.grid(row=3, column=0)
 operation_menu = ttk.OptionMenu(window, operation_var, "add", "add", "subtract", "multiply", "divide", "percentage", "square_root", "remainder", "power")
 operation_menu.grid(row=3, column=1)
 
-
 calculate_button = ttk.Button(window, text="Calculate", command=calculate)
-calculate_button.grid(row=4, column=0, columnspan=2)
+calculate_button.grid(row=4, column=0)
+
+clear_button = ttk.Button(window, text="Clear", command=clear)
+clear_button.grid(row=4, column=1)
 
 window.mainloop()
-
